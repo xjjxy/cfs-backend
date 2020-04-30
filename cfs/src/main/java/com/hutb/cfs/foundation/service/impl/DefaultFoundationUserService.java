@@ -21,9 +21,9 @@ public class DefaultFoundationUserService implements FoundationUserService {
 	}
 	
 	@Override
-	public FoundationUser getFoundationUser(String username, String password) {
+	public FoundationUser getFoundationUser(String username, String password,String role) {
 		// TODO Auto-generated method stub
-		return basicFoundationDao.getFoundationUser(username, password);
+		return basicFoundationDao.getFoundationUser(username, password,role);
 	}
 
 	@Override
@@ -36,5 +36,17 @@ public class DefaultFoundationUserService implements FoundationUserService {
 	public int addFoundation(Foundation f) {
 		// TODO Auto-generated method stub
 		return basicFoundationDao.addFoundation(f);
+	}
+
+	@Override
+	public int addFouondationId(int foundation_id, int id) {
+		// TODO Auto-generated method stub
+		return basicFoundationDao.addFouondationId(foundation_id, id);
+	}
+
+	@Override
+	public Foundation getFoundation(int id) {
+		// TODO Auto-generated method stub
+		return basicFoundationDao.getFoundation(id);
 	}
 }

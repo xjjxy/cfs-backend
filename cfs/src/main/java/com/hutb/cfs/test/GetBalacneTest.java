@@ -1,5 +1,6 @@
 package com.hutb.cfs.test;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -25,6 +26,9 @@ public class GetBalacneTest {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
+	        
+	        File file = new File("src/main/resources/contractAddress.properties");
+	        System.out.println(file.getAbsolutePath());
 	    }
 
 }

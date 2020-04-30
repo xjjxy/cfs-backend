@@ -1,7 +1,5 @@
 package com.hutb.cfs.foundation.service;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
 
@@ -10,10 +8,14 @@ public interface FoundationUserService {
 
 	int addFoundationUser(FoundationUser fu);
 	
-	FoundationUser getFoundationUser(@Param("username")String username,@Param("password")String password);
+	FoundationUser getFoundationUser(String username,String password,String role);
 	
 	
 	int addWalletUUID(String uuid,int id);
 	
 	int addFoundation(Foundation f);
+	
+	int addFouondationId(int foundation_id,int id);
+	
+	Foundation getFoundation(int id);
 }

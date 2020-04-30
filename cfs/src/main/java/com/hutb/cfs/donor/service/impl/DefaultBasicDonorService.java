@@ -20,9 +20,9 @@ public class DefaultBasicDonorService implements BasicDonorService {
 	}
 
 	@Override
-	public Donor getDonor(String username, String password) {
+	public Donor getDonor(String username, String password,String role) {
 		// TODO Auto-generated method stub
-		return basicDonorDao.getDonor(username, password);
+		return basicDonorDao.getDonor(username, password,role);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class Foundation {
 	private String name;
 	private String license;
 	private int level;
-	private int modify_date;
+	private long modify_date;
 	private String certification;
 	private String audit_status;
 	public int getId() {
@@ -33,10 +33,10 @@ public class Foundation {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public int getModify_date() {
+	public long getModify_date() {
 		return modify_date;
 	}
-	public void setModify_date(int modify_date) {
+	public void setModify_date(long modify_date) {
 		this.modify_date = modify_date;
 	}
 	public String getCertification() {

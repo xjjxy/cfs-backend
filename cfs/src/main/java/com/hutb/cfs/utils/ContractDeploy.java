@@ -1,5 +1,6 @@
 package com.hutb.cfs.utils;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -86,14 +87,18 @@ public class ContractDeploy {
 		System.out.println("wallet:"+bushu.getContractAddress());
 		System.out.println("detail:"+d.getContractAddress());
 		Properties prop = new Properties();
-		InputStream in = ClassLoader.getSystemResourceAsStream("contractAddress.properties");
+//		InputStream in = ClassLoader.getSystemResourceAsStream("contractAddress.properties");
+		InputStream in = new FileInputStream("src/main/resources/contractAddress.properties");
 		prop.load(in);
 		prop.setProperty("Wallet", bushu.getContractAddress());
 		prop.setProperty("Detail", d.getContractAddress());
 		
-		OutputStream out = new FileOutputStream(ClassLoader.getSystemResource("contractAddress.properties").getPath(),
+		OutputStream out = new FileOutputStream("src/main/resources/contractAddress.properties",
 				true);
 		OutputStreamWriter osw = new OutputStreamWriter(out, "UTF-8");
 		prop.store(osw, "#");
+		
+		in.close();
+		out.close();
 	}
 }

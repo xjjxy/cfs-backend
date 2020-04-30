@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +18,7 @@ import com.hutb.cfs.donor.service.impl.DefaultBasicDonorService;
 
 @Controller
 @RequestMapping("/donor")
-@CrossOrigin
+//@CrossOrigin
 public class DonorController {
 
 	@Autowired
@@ -53,11 +52,11 @@ public class DonorController {
 	public String login(HttpServletRequest request){
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		
+		String role = (String) request.getSession().getAttribute("role");
 		String username = (String) request.getSession().getAttribute("username");
 		String password = (String) request.getSession().getAttribute("password");
 		
-		Donor donor = basicDonorService.getDonor(username, password);
+		Donor donor = basicDonorService.getDonor(username, password,role);
 		if(null != donor){
 			System.out.println(donor.getUuid());
 			result.put("user", donor);

@@ -13,8 +13,8 @@ public interface BasicDonorDao extends BaseDao {
 	@Insert("insert into t_cfs_donor_user_info(name,username,password,tel) values(#{name},#{username},#{password},#{tel})")
 	int addDonor(Donor donor);
 	
-	@Select("select * from t_cfs_donor_user_info where username = #{username} and password = #{password}")
-	Donor getDonor(@Param("username")String username,@Param("password")String password);
+	@Select("select * from t_cfs_donor_user_info where username = #{username} and password = #{password} and role = #{role}")
+	Donor getDonor(@Param("username")String username,@Param("password")String password,@Param("role")String role);
 	
 	@Update("update t_cfs_donor_user_info set uuid = #{uuid} where id = #{id}")
 	int addWalletUUID(@Param("uuid")String uuid,@Param("id")int id);

@@ -6,7 +6,7 @@ public interface BasicDonorService {
 
 	int addDonor(Donor donor);
 	
-	Donor getDonor(String username,String password);
+	Donor getDonor(String username,String password,String role);
 	
 	int addWalletUUID(String uuid,int id);
 }
