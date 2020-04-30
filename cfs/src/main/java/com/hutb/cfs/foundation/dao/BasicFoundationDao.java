@@ -26,6 +26,8 @@ public interface BasicFoundationDao extends BaseDao {
 	@Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
 	int addFoundation(Foundation f);
 	
+	@Select("select uuid from t_cfs_foundation_user_info where foundation_id = #{foundation_id}")
+	String getUUID(int foundation_id);
 	
 	@Update("update t_cfs_foundation_user_info set foundation_id = #{foundation_id} where id = #{id}")
 	int addFouondationId(@Param("foundation_id")int foundation_id,@Param("id")int id);

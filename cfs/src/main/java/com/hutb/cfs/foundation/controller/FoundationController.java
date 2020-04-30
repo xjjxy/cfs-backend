@@ -20,7 +20,7 @@ import com.hutb.cfs.admin.dao.impl.WalletDaoImpl;
 import com.hutb.cfs.admin.entity.Wallet;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
-import com.hutb.cfs.foundation.service.impl.DefaultFoundationUserService;
+import com.hutb.cfs.foundation.service.impl.DefaultFoundationService;
 import com.hutb.cfs.utils.IpfsUtils;
 
 @Controller
@@ -29,7 +29,7 @@ import com.hutb.cfs.utils.IpfsUtils;
 public class FoundationController {
 
 	@Autowired
-	private DefaultFoundationUserService foundationUserService;
+	private DefaultFoundationService foundationService;
 	
 	@Autowired
 	private WalletDaoImpl walletDao;
@@ -39,7 +39,7 @@ public class FoundationController {
 	public String getFoundation(int foundation_id) throws UnsupportedEncodingException{
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("get foundation_id:"+foundation_id);
-		Foundation f = foundationUserService.getFoundation(foundation_id);
+		Foundation f = foundationService.getFoundation(foundation_id);
 		if(null != f){
 //			f.setName(new String(f.getName().getBytes("utf-8"),"gbk"));
 			result.put("type", "1");
@@ -64,7 +64,7 @@ public class FoundationController {
 		fu.setPassword(password);
 		fu.setTel(tel);
 		
-		if(foundationUserService.addFoundationUser(fu) == 1){
+		if(foundationService.addFoundationUser(fu) == 1){
 			result.put("type", "1");
 		}else{
 			result.put("type", "0");
@@ -86,7 +86,7 @@ public class FoundationController {
 		
 		System.out.println("username:" + username + ",password:" + password);
 		
-		FoundationUser fu = foundationUserService.getFoundationUser(username, password,role);
+		FoundationUser fu = foundationService.getFoundationUser(username, password,role);
 		if(null != fu){
 			result.put("user", fu);
 			result.put("type", "1");
@@ -108,7 +108,7 @@ public class FoundationController {
 		String uuid = walletDao.createWallet(wallet_address, privateKey, password);
 		System.out.println("create uuid:"+uuid);
 		Wallet wallet = new Wallet();
-		if(foundationUserService.addWalletUUID(uuid, id) == 1){
+		if(foundationService.addWalletUUID(uuid, id) == 1){
 			String _wallet_address = walletDao.getWalletAddress(uuid);
 			String hash = walletDao.getWalletHash(uuid);
 			String balance = walletDao.getBlance(_wallet_address);
@@ -156,8 +156,8 @@ public class FoundationController {
 		f.setModify_date(modify_date);
 		f.setCertification("0");//0 申请 1修改
 		f.setAudit_status("0");// 0审核中 1通过 2未通过
-		if(foundationUserService.addFoundation(f) == 1){
-			if(foundationUserService.addFouondationId(f.getId(), id) == 1){
+		if(foundationService.addFoundation(f) == 1){
+			if(foundationService.addFouondationId(f.getId(), id) == 1){
 				result.put("type", "1");
 				result.put("foundation_id", f.getId());
 			}else{

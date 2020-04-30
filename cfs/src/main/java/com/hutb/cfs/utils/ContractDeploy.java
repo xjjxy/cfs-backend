@@ -63,12 +63,14 @@ public class ContractDeploy {
 //				true);
 //		OutputStreamWriter osw = new OutputStreamWriter(out, "UTF-8");
 //		prop.store(osw, "#");
-		
-		
+		InputStream in = new FileInputStream("src/main/resources/contractAddress.properties");
+		Properties prop = new Properties();
+		prop.load(in);
+		String hash = prop.getProperty("admin.hash");
 		Credentials credentials = null;
 		try {
 			credentials = MyWalletUtils.getCredentials("admin"
-					,"QmRHbpX5dq55dm6CwXh1twq7PMn4eve4TPED2KfbRiobV9");
+					,hash);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			// 获取证书失败
@@ -86,9 +88,9 @@ public class ContractDeploy {
 		
 		System.out.println("wallet:"+bushu.getContractAddress());
 		System.out.println("detail:"+d.getContractAddress());
-		Properties prop = new Properties();
+		prop = new Properties();
 //		InputStream in = ClassLoader.getSystemResourceAsStream("contractAddress.properties");
-		InputStream in = new FileInputStream("src/main/resources/contractAddress.properties");
+		in = new FileInputStream("src/main/resources/contractAddress.properties");
 		prop.load(in);
 		prop.setProperty("Wallet", bushu.getContractAddress());
 		prop.setProperty("Detail", d.getContractAddress());

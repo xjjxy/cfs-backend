@@ -6,14 +6,20 @@ import org.springframework.stereotype.Service;
 import com.hutb.cfs.foundation.dao.BasicFoundationDao;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
-import com.hutb.cfs.foundation.service.FoundationUserService;
+import com.hutb.cfs.foundation.service.FoundationService;
 
 @Service
-public class DefaultFoundationUserService implements FoundationUserService {
+public class DefaultFoundationService implements FoundationService {
 
 	@Autowired
 	BasicFoundationDao basicFoundationDao;
 	
+	
+	@Override
+	public String getUUID(int foundation_id) {
+		// TODO Auto-generated method stub
+		return basicFoundationDao.getUUID(foundation_id);
+	}
 	@Override
 	public int addFoundationUser(FoundationUser fu) {
 		// TODO Auto-generated method stub

@@ -10,6 +10,11 @@ import com.hutb.cfs.donor.entity.Donor;
 
 public interface BasicDonorDao extends BaseDao {
 
+	/**
+	 * 
+	 * @param donor
+	 * @return the result of addDonor
+	 */
 	@Insert("insert into t_cfs_donor_user_info(name,username,password,tel) values(#{name},#{username},#{password},#{tel})")
 	int addDonor(Donor donor);
 	

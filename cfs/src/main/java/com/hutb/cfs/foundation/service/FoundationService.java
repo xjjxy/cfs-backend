@@ -4,7 +4,7 @@ import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
 
 
-public interface FoundationUserService {
+public interface FoundationService {
 
 	int addFoundationUser(FoundationUser fu);
 	
@@ -18,4 +18,6 @@ public interface FoundationUserService {
 	int addFouondationId(int foundation_id,int id);
 	
 	Foundation getFoundation(int id);
+	
+	String getUUID(int foundation_id);
 }
