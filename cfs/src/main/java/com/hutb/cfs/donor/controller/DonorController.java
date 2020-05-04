@@ -17,7 +17,7 @@ import com.hutb.cfs.donor.entity.Donor;
 import com.hutb.cfs.donor.service.impl.DefaultBasicDonorService;
 
 @Controller
-@RequestMapping("/donor")
+@RequestMapping(value = "/donor", produces = "text/plain;charset=utf-8")
 //@CrossOrigin
 public class DonorController {
 

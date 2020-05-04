@@ -10,22 +10,32 @@ import com.hutb.cfs.admin.entity.Admin;
 import com.hutb.cfs.admin.entity.Login_Log;
 import com.hutb.cfs.basedao.BaseDao;
 import com.hutb.cfs.foundation.entity.Foundation;
+import com.hutb.cfs.foundation.entity.Project;
 
 public interface AdminDao extends BaseDao {
 
 	
 	@Select("select * from t_cfs_admin_info where username = #{username} and password = #{password}")
-	Admin getAdmin(Admin admin);
+	public Admin getAdmin(Admin admin);
 	
 	@Select("select * from t_cfs_foundation_info where audit_status = 0")
-	List<Foundation> getNHFoundation();
+	public List<Foundation> getNHFoundation();
 	
 	@Select("select * from t_cfs_foundation_info where audit_status != 0")
-	List<Foundation> getIsHFoundation();
+	public List<Foundation> getIsHFoundation();
 	
 	@Update("update t_cfs_foundation_info set level = #{level},modify_date = #{modify_date},audit_status = #{audit_status} where id = #{id}")
-	int handleFoundation(Foundation f);
+	public int handleFoundation(Foundation f);
 	
 	@Insert("insert into t_cfs_login_log (username,user_type,login_date) values(#{username},#{user_type},#{login_date})")
-	void loginLog(Login_Log log);
+	public void loginLog(Login_Log log);
+	
+	@Select("select * from t_cfs_basic_project_info  where audit_status = 0")
+	public List<Project> geNHProject();
+	
+	@Update("update t_cfs_basic_project_info set level = #{level},audit_status = #{audit_status} where id = #{id}")
+	public int handleProject(Project p);
+	
+	@Select("select * from t_cfs_basic_project_info where audit_status != 0")
+	public List<Project> getIsHProject();
 }

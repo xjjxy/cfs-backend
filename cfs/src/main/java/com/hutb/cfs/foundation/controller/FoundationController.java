@@ -129,18 +129,7 @@ public class FoundationController {
 	@ResponseBody
 	public String addFoundation(int id,String foundationName,@RequestPart("licenseFile") MultipartFile licenseFile) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
-		System.out.println("receive foundationName:"+foundationName+",licenseFile"+new String(licenseFile.getName().getBytes("ISO8859-1"),"utf-8"));
-		try {
-			foundationName = new String(foundationName.getBytes("ISO8859-1"),"utf-8");
-			System.out.println(foundationName);
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-//		String ch = new String(foundationName,"UTF-8");
-//		System.out.println(JSON.parse(foundationName));
-//		byte [] cc = (byte[]) JSON.parse(foundationName);
-//		System.out.println(new String(cc));
+		System.out.println("receive foundationName:"+foundationName+",licenseFile"+licenseFile.getName());
 		String license = "";
 		try {
 			license = IpfsUtils.upload(licenseFile);

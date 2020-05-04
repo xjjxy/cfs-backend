@@ -25,9 +25,9 @@ public class DefaultProjectService implements BasicProjectService {
 
 
 	@Override
-	public List<Project> getAllProject(int foundation_id) {
+	public List<Project> getAllMyProject(int foundation_id) {
 		// TODO Auto-generated method stub
-		return projectDao.getAllProject(foundation_id);
+		return projectDao.getAllMyProject(foundation_id);
 	}
 
 }

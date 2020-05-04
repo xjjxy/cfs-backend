@@ -6,18 +6,18 @@ import com.hutb.cfs.foundation.entity.FoundationUser;
 
 public interface FoundationService {
 
-	int addFoundationUser(FoundationUser fu);
+	public int addFoundationUser(FoundationUser fu);
 	
-	FoundationUser getFoundationUser(String username,String password,String role);
+	public FoundationUser getFoundationUser(String username,String password,String role);
 	
 	
-	int addWalletUUID(String uuid,int id);
+	public int addWalletUUID(String uuid,int id);
 	
-	int addFoundation(Foundation f);
+	public int addFoundation(Foundation f);
 	
-	int addFouondationId(int foundation_id,int id);
+	public int addFouondationId(int foundation_id,int id);
 	
-	Foundation getFoundation(int id);
+	public Foundation getFoundation(int id);
 	
-	String getUUID(int foundation_id);
+	public String getUUID(int foundation_id);
 }

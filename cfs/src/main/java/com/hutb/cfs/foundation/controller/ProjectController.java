@@ -1,5 +1,7 @@
 package com.hutb.cfs.foundation.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +9,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.hutb.cfs.admin.dao.impl.DetailDaoImpl;
@@ -18,7 +23,7 @@ import com.hutb.cfs.foundation.service.impl.DefaultProjectService;
 import com.hutb.cfs.utils.IpfsUtils;
 
 @Controller
-@RequestMapping(value="/project",produces = "text/plain;charset=utf-8")
+@RequestMapping(value="/foundation",produces = "text/plain;charset=utf-8")
 public class ProjectController {
 
 	@Autowired
@@ -40,12 +45,17 @@ public class ProjectController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/addProject")
+	@RequestMapping(value="/addProject", method = RequestMethod.POST)
 	@ResponseBody
-	public String addProject(Project p) throws Exception{
+	public String addProject(Project p,String time,@RequestPart("showImg") MultipartFile showImg) throws Exception{
+		System.out.println(showImg);
 		Map<String,Object> result = new HashMap<String,Object>();
-		System.out.println("p:"+p);
+		SimpleDateFormat format =   new SimpleDateFormat("yyyy年MM月dd日");
+		long tt = format.parse(time).getTime();
+		p.setBegin_time(tt);
+		p.setImg(IpfsUtils.upload(showImg));
 		p.setDescription(IpfsUtils.upload(p.getDescription()));
+		System.out.println("p:"+p);
 		
 		int re = projectService.addProject(p);
 		if(0 != re){
@@ -73,13 +83,14 @@ public class ProjectController {
 	 * @param foundation_id
 	 * @return
 	 */
-	@RequestMapping(value="/getAllProject")
+	@RequestMapping(value="/getAllMyProject")
 	@ResponseBody
 	public String getAllProject(int foundation_id){
 		Map<String,Object> result = new HashMap<String,Object>();
-		List<Project> list = projectService.getAllProject(foundation_id);
+		List<Project> list = projectService.getAllMyProject(foundation_id);
 		if(null != list){
 			result.put("type", "1");
+			
 			for(Project p : list){
 				//从以太坊获取金额数据
 				Project pFromEth = detailDao.getDetail(p.getId());

@@ -6,19 +6,38 @@ public class Project {
 	private String name;
 	private int foundation_id;
 	private int level;
-	private String begin_time;
+	private long begin_time;
 	private int duration;
-	private String status;
+	private String audit_status;
 	private String description;
 	private long target_amount;
 	private long now_amount;
 	private long last_amount;
 	private String wallet_address;
+	private int comment_count;
+	private int donate_count;
+	private String img;
 	
 	
 	
-	
-	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public int getComment_count() {
+		return comment_count;
+	}
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
+	}
+	public int getDonate_count() {
+		return donate_count;
+	}
+	public void setDonate_count(int donate_count) {
+		this.donate_count = donate_count;
+	}
 	public String getWallet_address() {
 		return wallet_address;
 	}
@@ -73,31 +92,34 @@ public class Project {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public String getBegin_time() {
-		return begin_time;
-	}
-	public void setBegin_time(String begin_time) {
-		this.begin_time = begin_time;
-	}
 	public int getDuration() {
 		return duration;
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	public String getStatus() {
-		return status;
+	public String getAudit_status() {
+		return audit_status;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setAudit_status(String audit_status) {
+		this.audit_status = audit_status;
+	}
+	public long getBegin_time() {
+		return begin_time;
+	}
+	public void setBegin_time(long begin_time) {
+		this.begin_time = begin_time;
 	}
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", foundation_id=" + foundation_id + ", level=" + level
-				+ ", begin_time=" + begin_time + ", duration=" + duration + ", status=" + status + ", description="
-				+ description + ", target_amount=" + target_amount + ", now_amount=" + now_amount + ", last_amount="
-				+ last_amount + ", wallet_address=" + wallet_address + "]";
+				+ ", begin_time=" + begin_time + ", duration=" + duration + ", audit_status=" + audit_status
+				+ ", description=" + description + ", target_amount=" + target_amount + ", now_amount=" + now_amount
+				+ ", last_amount=" + last_amount + ", wallet_address=" + wallet_address + ", comment_count="
+				+ comment_count + ", donate_count=" + donate_count + ", img=" + img + "]";
 	}
+	
+	
 	
 	
 }

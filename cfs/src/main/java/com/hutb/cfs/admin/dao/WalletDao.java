@@ -2,15 +2,15 @@ package com.hutb.cfs.admin.dao;
 
 public interface WalletDao {
 
-	String createWallet(String wallet_address,String privateKey,String password);
+	public String createWallet(String wallet_address,String privateKey,String password);
 	
-	String getWalletPassword(String uuid);
-	
-	
-	String getWalletAddress(String uuid);
+	public String getWalletPassword(String uuid);
 	
 	
-	String getWalletHash(String uuid);
+	public String getWalletAddress(String uuid);
 	
-	String getBlance(String _address);
+	
+	public String getWalletHash(String uuid);
+	
+	public String getBlance(String _address);
 }

@@ -8,7 +8,7 @@ public interface BasicProjectService {
 
 	
 	
-	int addProject(Project p);
+	public int addProject(Project p);
 	
-	List<Project> getAllProject(int foundation_id);
+	public List<Project> getAllMyProject(int foundation_id);
 }

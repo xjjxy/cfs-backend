@@ -10,6 +10,7 @@ import com.hutb.cfs.admin.entity.Admin;
 import com.hutb.cfs.admin.entity.Login_Log;
 import com.hutb.cfs.admin.service.AdminService;
 import com.hutb.cfs.foundation.entity.Foundation;
+import com.hutb.cfs.foundation.entity.Project;
 
 @Service
 public class DefaultAdminService implements AdminService {
@@ -45,5 +46,23 @@ public class DefaultAdminService implements AdminService {
 	public void loginLog(Login_Log log) {
 		// TODO Auto-generated method stub
 		adminDao.loginLog(log);
+	}
+
+	@Override
+	public List<Project> geNHProject() {
+		// TODO Auto-generated method stub
+		return adminDao.geNHProject();
+	}
+
+	@Override
+	public int handleProject(Project p) {
+		// TODO Auto-generated method stub
+		return adminDao.handleProject(p);
+	}
+
+	@Override
+	public List<Project> getIsHProject() {
+		// TODO Auto-generated method stub
+		return adminDao.getIsHProject();
 	}
 }

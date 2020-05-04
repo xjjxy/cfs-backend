@@ -99,7 +99,11 @@ public class AppConfig implements WebMvcConfigurer {
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
 		System.out.println("CommonsMultipartResolver--");
-		return new CommonsMultipartResolver();
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10000000);
+		multipartResolver.setDefaultEncoding("UTF-8");
+		return multipartResolver;
+
 	}
 	
 	// 视图转发

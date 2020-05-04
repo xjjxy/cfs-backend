@@ -12,13 +12,13 @@ import com.hutb.cfs.foundation.entity.Project;
 public interface BasicProjectDao extends BaseDao{
 
 	
-	@Insert("insert into t_cfs_basic_project_info (name,foundation_id,description,begin_time,duration) values(#{name},#{foundation_id},#{description},#{begin_time},#{duration})")
+	@Insert("insert into t_cfs_basic_project_info (name,foundation_id,description,begin_time,duration,img) values(#{name},#{foundation_id},#{description},#{begin_time},#{duration},#{img})")
 	@Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
-	int addProject(Project p);
+	public int addProject(Project p);
 	
 	
 	@Select("select * from t_cfs_basic_project_info where foundation_id = #{foundation_id}")
-	List<Project> getAllProject(int foundation_id);
+	public List<Project> getAllMyProject(int foundation_id);
 	
 	
 }

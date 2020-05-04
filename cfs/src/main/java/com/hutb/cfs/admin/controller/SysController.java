@@ -3,7 +3,6 @@ package com.hutb.cfs.admin.controller;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -13,16 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.hutb.cfs.admin.dao.impl.WalletDaoImpl;
-import com.hutb.cfs.admin.entity.Admin;
 import com.hutb.cfs.admin.entity.Login_Log;
 import com.hutb.cfs.admin.entity.Wallet;
 import com.hutb.cfs.admin.service.impl.DefaultAdminService;
-import com.hutb.cfs.foundation.entity.Foundation;
 
 @Controller
 @RequestMapping(value = "/sys",produces = "text/plain;charset=utf-8")
@@ -35,58 +31,7 @@ public class SysController {
 	@Autowired
 	private DefaultAdminService adminService;
 	
-	
-	@RequestMapping(value="/handleFoundation",method=RequestMethod.POST)
-	@ResponseBody
-	public String handleFoundation(String id,String level,String audit_status){
-		System.out.println("level:"+level+",audit_status:"+audit_status+",id:"+id);
-		Map<String, Object> result = new HashMap<String, Object>();
-		Foundation f = new Foundation();
-		f.setAudit_status(audit_status);
-		f.setLevel(Integer.valueOf(level));
-		f.setId(Integer.valueOf(id));
-		f.setModify_date(System.currentTimeMillis());
-		if(adminService.handleFoundation(f) == 1){
-			result.put("type", "1");
-		}else{
-			result.put("type", "0");
-		}
-		return JSON.toJSONString(result);
-	}
-	
-	@RequestMapping("/getNHFoundation")
-	@ResponseBody
-	public String getNHFoundation(){
-		Map<String, Object> result = new HashMap<String, Object>();
-		List<Foundation> list = adminService.getNHFoundation();
-		if(null != list){
-			result.put("type", "1");
-			result.put("list", list);
-		}else{
-			result.put("type", "0");
-		}
-		for(Foundation f : list){
-			System.out.println(f);
-		}
-		return JSON.toJSONString(result);
-	}
-	
-	@RequestMapping("/getIsHFoundation")
-	@ResponseBody
-	public String getIsHFoundation(){
-		Map<String, Object> result = new HashMap<String, Object>();
-		List<Foundation> list = adminService.getIsHFoundation();
-		if(null != list){
-			result.put("type", "1");
-			result.put("list", list);
-		}else{
-			result.put("type", "0");
-		}
-		for(Foundation f : list){
-			System.out.println(f);
-		}
-		return JSON.toJSONString(result);
-	}
+
 	
 	
 	@RequestMapping("/login")
@@ -105,7 +50,7 @@ public class SysController {
 			result = "redirect:../foundation/login";
 			user_type = "基金会";
 		} else {
-			result = "forward:admin/login";
+			result = "forward:../admin/login";
 			user_type = "管理员";
 		}
 		Date date = new Date();
@@ -159,27 +104,4 @@ public class SysController {
 		return JSON.toJSONString(result);
 	}
 
-	@RequestMapping("/admin/login")
-	@ResponseBody
-	public String adminLogin(HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<String, Object>();
-
-		System.out.println(request.getSession().getAttribute("username"));
-		System.out.println(request.getSession().getAttribute("password"));
-
-		String username = (String) request.getSession().getAttribute("username");
-		String password = (String) request.getSession().getAttribute("password");
-
-		Admin admin = new Admin();
-		admin.setUsername(username);
-		admin.setPassword(password);
-		admin = adminService.getAdmin(admin);
-		if (null != admin) {
-			result.put("user", admin);
-			result.put("type", "1");
-		} else {
-			result.put("type", "0");
-		}
-		return JSON.toJSONString(result);
-	}
 }

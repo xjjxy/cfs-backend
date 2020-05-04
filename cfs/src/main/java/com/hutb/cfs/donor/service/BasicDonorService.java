@@ -4,9 +4,9 @@ import com.hutb.cfs.donor.entity.Donor;
 
 public interface BasicDonorService {
 
-	int addDonor(Donor donor);
+	public int addDonor(Donor donor);
 	
-	Donor getDonor(String username,String password,String role);
+	public Donor getDonor(String username,String password,String role);
 	
-	int addWalletUUID(String uuid,int id);
+	public int addWalletUUID(String uuid,int id);
 }
