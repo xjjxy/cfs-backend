@@ -1,7 +1,6 @@
 package com.hutb.cfs.foundation.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,16 +46,20 @@ public class ProjectController {
 	 */
 	@RequestMapping(value="/addProject", method = RequestMethod.POST)
 	@ResponseBody
-	public String addProject(Project p,String time,@RequestPart("showImg") MultipartFile showImg) throws Exception{
+	public String addProject(Project p,String bTime,String eTime,@RequestPart("showImg") MultipartFile showImg) throws Exception{
 		System.out.println(showImg);
 		Map<String,Object> result = new HashMap<String,Object>();
 		SimpleDateFormat format =   new SimpleDateFormat("yyyy年MM月dd日");
-		long tt = format.parse(time).getTime();
-		p.setBegin_time(tt);
+		long bt = format.parse(bTime).getTime();
+		p.setBegin_time(bt);
+		//加一天
+		long et = format.parse(eTime).getTime() + 86400000;
+		p.setEnd_time(et);
 		p.setImg(IpfsUtils.upload(showImg));
 		p.setDescription(IpfsUtils.upload(p.getDescription()));
 		System.out.println("p:"+p);
-		
+		String foundation_name = projectService.getFoundationName(p.getFoundation_id());
+		p.setFoundation_name(foundation_name);
 		int re = projectService.addProject(p);
 		if(0 != re){
 			System.out.println("id:"+p.getId());

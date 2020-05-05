@@ -11,4 +11,6 @@ public interface BasicProjectService {
 	public int addProject(Project p);
 	
 	public List<Project> getAllMyProject(int foundation_id);
+	
+	public String getFoundationName(int foundation_id);
 }

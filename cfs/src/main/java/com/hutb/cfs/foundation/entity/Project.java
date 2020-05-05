@@ -5,9 +5,10 @@ public class Project {
 	private int id;
 	private String name;
 	private int foundation_id;
+	private String foundation_name;
 	private int level;
 	private long begin_time;
-	private int duration;
+	private long end_time;
 	private String audit_status;
 	private String description;
 	private long target_amount;
@@ -20,6 +21,19 @@ public class Project {
 	
 	
 	
+	
+	public String getFoundation_name() {
+		return foundation_name;
+	}
+	public void setFoundation_name(String foundation_name) {
+		this.foundation_name = foundation_name;
+	}
+	public long getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(long end_time) {
+		this.end_time = end_time;
+	}
 	public String getImg() {
 		return img;
 	}
@@ -92,12 +106,6 @@ public class Project {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public int getDuration() {
-		return duration;
-	}
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
 	public String getAudit_status() {
 		return audit_status;
 	}
@@ -112,14 +120,11 @@ public class Project {
 	}
 	@Override
 	public String toString() {
-		return "Project [id=" + id + ", name=" + name + ", foundation_id=" + foundation_id + ", level=" + level
-				+ ", begin_time=" + begin_time + ", duration=" + duration + ", audit_status=" + audit_status
-				+ ", description=" + description + ", target_amount=" + target_amount + ", now_amount=" + now_amount
-				+ ", last_amount=" + last_amount + ", wallet_address=" + wallet_address + ", comment_count="
-				+ comment_count + ", donate_count=" + donate_count + ", img=" + img + "]";
+		return "Project [id=" + id + ", name=" + name + ", foundation_id=" + foundation_id + ", foundation_name="
+				+ foundation_name + ", level=" + level + ", begin_time=" + begin_time + ", end_time=" + end_time
+				+ ", audit_status=" + audit_status + ", description=" + description + ", target_amount=" + target_amount
+				+ ", now_amount=" + now_amount + ", last_amount=" + last_amount + ", wallet_address=" + wallet_address
+				+ ", comment_count=" + comment_count + ", donate_count=" + donate_count + ", img=" + img + "]";
 	}
-	
-	
-	
-	
+
 }

@@ -30,4 +30,11 @@ public class DefaultProjectService implements BasicProjectService {
 		return projectDao.getAllMyProject(foundation_id);
 	}
 
+
+	@Override
+	public String getFoundationName(int foundation_id) {
+		// TODO Auto-generated method stub
+		return projectDao.getFoundationName(foundation_id);
+	}
+
 }
