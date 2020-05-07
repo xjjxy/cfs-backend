@@ -130,12 +130,12 @@ public class WalletDaoImpl implements WalletDao {
 		BigDecimal balance = null;
 	        try {
 	            BigInteger count  = web3j.ethGetBalance(_address,DefaultBlockParameterName.LATEST).send().getBalance();
-	            balance = Convert.fromWei(count.toString(), Convert.Unit.ETHER);
+	            balance = Convert.fromWei(BigDecimal.valueOf(count.doubleValue()), Convert.Unit.ETHER);
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            return "0";
 	        }
-		return balance.toEngineeringString();
+		return balance.toString();
 	}
 	
 	private Wallet getWalletContract(){

@@ -57,9 +57,9 @@ public class ProjectController {
 		p.setEnd_time(et);
 		p.setImg(IpfsUtils.upload(showImg));
 		p.setDescription(IpfsUtils.upload(p.getDescription()));
-		System.out.println("p:"+p);
 		String foundation_name = projectService.getFoundationName(p.getFoundation_id());
 		p.setFoundation_name(foundation_name);
+		System.out.println("p:"+p);
 		int re = projectService.addProject(p);
 		if(0 != re){
 			System.out.println("id:"+p.getId());
