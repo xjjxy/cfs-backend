@@ -8,7 +8,7 @@ import com.hutb.cfs.foundation.entity.Project;
 public interface DonateService {
 
 	
-	public List<Project> getAllProjectBasicInfo(long now,int currentIndex,int pageSize);
+	public List<Project> getAllProjectBasicInfo(long now,int currentIndex,int pageSize,String project_name);
 	
 	
 	public Project getProjectDetail(int id);

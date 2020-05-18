@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hutb.cfs.admin.dao.AdminDao;
+import com.hutb.cfs.admin.dao.StatisticDao;
 import com.hutb.cfs.admin.entity.Admin;
-import com.hutb.cfs.admin.entity.Login_Log;
+import com.hutb.cfs.admin.entity.LoginLog;
+import com.hutb.cfs.admin.entity.Statistic;
 import com.hutb.cfs.admin.service.AdminService;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.Project;
@@ -16,7 +18,10 @@ import com.hutb.cfs.foundation.entity.Project;
 public class DefaultAdminService implements AdminService {
 
 	@Autowired
-	AdminDao adminDao;
+	private StatisticDao statisticDao;
+	
+	@Autowired
+	private AdminDao adminDao;
 	
 	@Override
 	public Admin getAdmin(Admin admin) {
@@ -43,7 +48,7 @@ public class DefaultAdminService implements AdminService {
 	}
 
 	@Override
-	public void loginLog(Login_Log log) {
+	public void loginLog(LoginLog log) {
 		// TODO Auto-generated method stub
 		adminDao.loginLog(log);
 	}
@@ -64,5 +69,11 @@ public class DefaultAdminService implements AdminService {
 	public List<Project> getIsHProject() {
 		// TODO Auto-generated method stub
 		return adminDao.getIsHProject();
+	}
+
+	@Override
+	public Statistic getStatistic() {
+		// TODO Auto-generated method stub
+		return statisticDao.getStatistic();
 	}
 }

@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.hutb.cfs.admin.dao.impl.DetailDaoImpl;
 import com.hutb.cfs.admin.entity.Admin;
+import com.hutb.cfs.admin.entity.AuditLog;
+import com.hutb.cfs.admin.entity.LoginLog;
+import com.hutb.cfs.admin.entity.Statistic;
 import com.hutb.cfs.admin.service.impl.DefaultAdminService;
+import com.hutb.cfs.admin.service.impl.DefaultAuditLogService;
+import com.hutb.cfs.admin.service.impl.DefaultLoginLogService;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.Project;
 
@@ -28,6 +33,58 @@ public class AdminController {
 	@Autowired
 	private DefaultAdminService adminService;
 	
+	@Autowired
+	private DefaultAuditLogService auditLogService;
+	
+	@Autowired
+	private DefaultLoginLogService loginLogService;
+	
+	
+	@RequestMapping("/getStatistic")
+	@ResponseBody
+	public String getStatistic(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		Statistic statistic = adminService.getStatistic();
+		if(null != statistic){
+			result.put("type", "1");
+			result.put("statistic",statistic);
+		}else{
+			result.put("type", "0");
+		}
+		return JSON.toJSONString(result);
+	}
+	
+	
+	@RequestMapping("/getAuditLog")
+	@ResponseBody
+	public String getAuditinLog(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<AuditLog> list = auditLogService.getAudti_Log();
+		if(null != list){
+			result.put("type", "1");
+			result.put("list", list);
+		}else{
+			
+			result.put("type", "0");
+		}
+		return JSON.toJSONString(result);
+	}
+	
+	
+	@RequestMapping("/getLoginLog")
+	@ResponseBody
+	public String getLoginLog(){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<LoginLog> list = loginLogService.getLoginLog();
+		if(null != list){
+			result.put("type", "1");
+			result.put("list", list);
+		}else{
+			
+			result.put("type", "0");
+		}
+		return JSON.toJSONString(result);
+	}
 	
 	@RequestMapping("/getIsHProject")
 	@ResponseBody
@@ -56,10 +113,17 @@ public class AdminController {
 	
 	@RequestMapping(value = "/handleProject", method = RequestMethod.POST)
 	@ResponseBody
-	public String handleProject(Project p){
+	public String handleProject(Project p,String username){
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("project:"+p);
 		if(1 == adminService.handleProject(p)){
+			AuditLog log = new AuditLog();
+			log.setAudit_type("募捐项目审核");
+			log.setAudit_operator(username);
+			log.setAudit_result("1".equals(p.getAudit_status()) ? "通过" : ("2".equals(p.getAudit_status()) ? "不通过" : "重新审核"));
+			log.setAudit_time(System.currentTimeMillis());
+			System.out.println("auditLog:"+log);
+			auditLogService.addAudit_Log(log);
 			result.put("type", "1");
 		} else {
 			result.put("type", "0");
@@ -97,7 +161,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/handleFoundation", method = RequestMethod.POST)
 	@ResponseBody
-	public String handleFoundation(String id, String level, String audit_status) {
+	public String handleFoundation(String id, String level, String audit_status,String username) {
 		System.out.println("level:" + level + ",audit_status:" + audit_status + ",id:" + id);
 		Map<String, Object> result = new HashMap<String, Object>();
 		Foundation f = new Foundation();
@@ -106,6 +170,13 @@ public class AdminController {
 		f.setId(Integer.valueOf(id));
 		f.setModify_date(System.currentTimeMillis());
 		if (adminService.handleFoundation(f) == 1) {
+			AuditLog log = new AuditLog();
+			log.setAudit_type("基金会审核");
+			log.setAudit_operator(username);
+			log.setAudit_result("1".equals(audit_status) ? "通过" : ("2".equals(audit_status) ? "不通过" : "重新审核"));
+			log.setAudit_time(System.currentTimeMillis());
+			System.out.println("auditLog:"+log);
+			auditLogService.addAudit_Log(log);
 			result.put("type", "1");
 		} else {
 			result.put("type", "0");

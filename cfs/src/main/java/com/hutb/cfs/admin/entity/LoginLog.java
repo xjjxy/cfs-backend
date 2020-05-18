@@ -1,6 +1,6 @@
 package com.hutb.cfs.admin.entity;
 
-public class Login_Log {
+public class LoginLog {
 
 	private int id;
 	private String username;

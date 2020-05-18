@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.hutb.cfs.admin.entity.Admin;
-import com.hutb.cfs.admin.entity.Login_Log;
+import com.hutb.cfs.admin.entity.LoginLog;
 import com.hutb.cfs.basedao.BaseDao;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.Project;
@@ -28,7 +28,7 @@ public interface AdminDao extends BaseDao {
 	public int handleFoundation(Foundation f);
 	
 	@Insert("insert into t_cfs_login_log (username,user_type,login_date) values(#{username},#{user_type},#{login_date})")
-	public void loginLog(Login_Log log);
+	public void loginLog(LoginLog log);
 	
 	@Select("select * from t_cfs_basic_project_info  where audit_status = 0")
 	public List<Project> geNHProject();

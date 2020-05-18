@@ -16,9 +16,9 @@ public interface DonateDao extends BaseDao {
 	// " and begin_time < #{now} and end_time > #{now} limit
 	// #{currentIndex},#{pageSize}"
 	@Select("select id,name,foundation_name,begin_time,end_time,donate_count,comment_count,level,img from t_cfs_basic_project_info where audit_status != 0 and begin_time < #{now}"
-			+ " and end_time > #{now} order by level desc limit #{currentIndex},#{pageSize}")
+			+ " and end_time > #{now} and name like #{project_name} order by level desc limit #{currentIndex},#{pageSize}")
 	public List<Project> getAllProjectBasicInfo(@Param("now") long now, @Param("currentIndex") int currentIndex,
-			@Param("pageSize") int pageSize);
+			@Param("pageSize") int pageSize,@Param("project_name")String project_name);
 
 	@Select("select * from t_cfs_basic_project_info where id = #{id}")
 	public Project getProjectDetail(int id);

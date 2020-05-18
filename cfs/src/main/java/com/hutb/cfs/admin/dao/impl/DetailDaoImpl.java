@@ -16,6 +16,7 @@ import org.web3j.utils.Convert;
 import com.hutb.cfs.admin.dao.DetailDao;
 import com.hutb.cfs.admin.entity.SysBean;
 import com.hutb.cfs.admin.entity.Wallet;
+import com.hutb.cfs.foundation.entity.Phase;
 import com.hutb.cfs.foundation.entity.Project;
 import com.hutb.cfs.solidity.Detail;
 import com.hutb.cfs.utils.MyWalletUtils;
@@ -39,7 +40,7 @@ public class DetailDaoImpl implements DetailDao {
 		Detail detail2 = getDetailContract(wallet);
 		BigDecimal _donate_amount = Convert.toWei(BigDecimal.valueOf(donate_amount), Convert.Unit.ETHER);
 		BigInteger da = BigInteger.valueOf(_donate_amount.longValue());
-		System.out.println("donation amount:"+da);
+		System.out.println("donation amount:" + da);
 		System.out.println();
 		try {
 			detail2.donation(BigInteger.valueOf(project_id), da).sendAsync();
@@ -94,9 +95,8 @@ public class DetailDaoImpl implements DetailDao {
 		}
 		try {
 			BigInteger ta = Convert.toWei(BigDecimal.valueOf(target_amount), Convert.Unit.ETHER).toBigInteger();
-//			System.out.println("存入以太坊--target_amount:"+ta);
-			detail.createDetail(wallet_address, ta, BigInteger.valueOf(project_id))
-					.send();
+			// System.out.println("存入以太坊--target_amount:"+ta);
+			detail.createDetail(wallet_address, ta, BigInteger.valueOf(project_id)).send();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,6 +133,69 @@ public class DetailDaoImpl implements DetailDao {
 		Detail detail = Detail.load(detailContract, web3j, credentials,
 				new StaticGasProvider(gasPrice, BigInteger.valueOf(6721975)));
 		return detail;
+	}
+
+	@Override
+	public void addPhase(int project_id, Phase phase) {
+		// TODO Auto-generated method stub
+		if (detail == null) {
+			detail = getDetailContractByAdmin();
+		}
+		BigInteger spend = Convert.toWei(BigDecimal.valueOf(phase.getPhase_spend()), Convert.Unit.ETHER).toBigInteger();
+		System.out.println("spend:" + spend);
+		try {
+			detail.createPhase(BigInteger.valueOf(project_id), String.valueOf(phase.getPhase_time()),
+					phase.getPhase_title(), phase.getPhase_description(), spend).send();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Phase getPhase(int index, int project_id) {
+		// TODO Auto-generated method stub
+		if (detail == null) {
+			detail = getDetailContractByAdmin();
+		}
+		Phase phase = new Phase();
+		try {
+			String phase_time = detail.getPhase(BigInteger.valueOf(project_id), BigInteger.valueOf(index)).send()
+					.component1();
+			String phase_title = detail.getPhase(BigInteger.valueOf(project_id), BigInteger.valueOf(index)).send()
+					.component2();
+			String phase_description = detail.getPhase(BigInteger.valueOf(project_id), BigInteger.valueOf(index)).send()
+					.component3();
+			BigInteger psd = detail.getPhase(BigInteger.valueOf(project_id), BigInteger.valueOf(index)).send()
+					.component4();
+			int phase_spend = Convert.fromWei(psd.toString(), Convert.Unit.ETHER).intValue();
+			System.out.println("get from eth phase_time:"+phase_time);
+			phase.setPhase_time(Long.valueOf(phase_time));
+			phase.setPhase_title(phase_title);
+			phase.setPhase_description(phase_description);
+			phase.setPhase_spend(phase_spend);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return phase;
+	}
+
+	@Override
+	public int getPhaseSize(int project_id) {
+		// TODO Auto-generated method stub
+		if (detail == null) {
+			detail = getDetailContractByAdmin();
+		}
+		int phaseSize = 0;
+		try {
+			phaseSize = detail.getPhaseSize(BigInteger.valueOf(project_id)).send().intValue();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return phaseSize;
 	}
 
 }

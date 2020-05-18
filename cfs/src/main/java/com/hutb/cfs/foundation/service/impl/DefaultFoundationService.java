@@ -3,6 +3,7 @@ package com.hutb.cfs.foundation.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hutb.cfs.admin.dao.StatisticDao;
 import com.hutb.cfs.foundation.dao.BasicFoundationDao;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
@@ -12,7 +13,11 @@ import com.hutb.cfs.foundation.service.FoundationService;
 public class DefaultFoundationService implements FoundationService {
 
 	@Autowired
-	BasicFoundationDao basicFoundationDao;
+	private BasicFoundationDao basicFoundationDao;
+	
+	@Autowired
+	private StatisticDao statisticDao;
+	
 	
 	
 	@Override
@@ -23,6 +28,7 @@ public class DefaultFoundationService implements FoundationService {
 	@Override
 	public int addFoundationUser(FoundationUser fu) {
 		// TODO Auto-generated method stub
+		statisticDao.addFoundation_User_Count();
 		return basicFoundationDao.addFoundationUser(fu);
 	}
 	
@@ -41,6 +47,7 @@ public class DefaultFoundationService implements FoundationService {
 	@Override
 	public int addFoundation(Foundation f) {
 		// TODO Auto-generated method stub
+		statisticDao.addFoundation_Count();
 		return basicFoundationDao.addFoundation(f);
 	}
 

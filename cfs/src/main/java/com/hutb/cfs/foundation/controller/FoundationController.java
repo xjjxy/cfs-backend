@@ -3,6 +3,7 @@ package com.hutb.cfs.foundation.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.hutb.cfs.admin.dao.impl.DetailDaoImpl;
 import com.hutb.cfs.admin.dao.impl.WalletDaoImpl;
 import com.hutb.cfs.admin.entity.Wallet;
 import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
+import com.hutb.cfs.foundation.entity.Project;
 import com.hutb.cfs.foundation.service.impl.DefaultFoundationService;
+import com.hutb.cfs.foundation.service.impl.DefaultProjectService;
 import com.hutb.cfs.utils.IpfsUtils;
 
 @Controller
@@ -29,10 +33,46 @@ import com.hutb.cfs.utils.IpfsUtils;
 public class FoundationController {
 
 	@Autowired
+	private DefaultProjectService projectService;
+	
+	
+	@Autowired
 	private DefaultFoundationService foundationService;
 	
 	@Autowired
 	private WalletDaoImpl walletDao;
+	
+	@Autowired
+	private DetailDaoImpl detailDao;
+	
+	@RequestMapping(value = "/getFoundationStatistic")
+	@ResponseBody
+	public String getFoundationStatistic(int foundation_id){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Project> list = projectService.getAllMyProject(foundation_id);
+		if (null != list) {
+			result.put("type", "1");
+			long donateCount = 0;
+			long donateAmount = 0;
+			for (Project p : list) {
+				// 从以太坊获取金额数据
+				Project pFromEth = detailDao.getDetail(p.getId());
+				p.setNow_amount(pFromEth.getNow_amount());
+				System.out.println("pFromEth" + pFromEth);
+				donateCount += p.getDonate_count();
+				donateAmount += p.getNow_amount();
+			}
+			result.put("projectCount", list.size());
+			result.put("donateCount", donateCount);
+			result.put("donateAmount", donateAmount);
+		} else {
+			result.put("type", "0");
+		}
+		System.out.println("result:" + result);
+		return JSON.toJSONString(result);
+	}
+	
+	
 	
 	@RequestMapping(value="/getFoundation")
 	@ResponseBody

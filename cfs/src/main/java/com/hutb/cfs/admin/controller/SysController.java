@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.hutb.cfs.admin.dao.impl.WalletDaoImpl;
-import com.hutb.cfs.admin.entity.Login_Log;
+import com.hutb.cfs.admin.entity.LoginLog;
 import com.hutb.cfs.admin.entity.Wallet;
-import com.hutb.cfs.admin.service.impl.DefaultAdminService;
+import com.hutb.cfs.admin.service.impl.DefaultLoginLogService;
 
 @Controller
 @RequestMapping(value = "/sys",produces = "text/plain;charset=utf-8")
@@ -28,9 +28,10 @@ public class SysController {
 	@Autowired
 	private WalletDaoImpl walletDao;
 
-	@Autowired
-	private DefaultAdminService adminService;
 	
+	
+	@Autowired
+	private DefaultLoginLogService loginLogService;
 
 	
 	
@@ -55,12 +56,12 @@ public class SysController {
 		}
 		Date date = new Date();
 		DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.CHINA);
-		Login_Log log = new Login_Log();
+		LoginLog log = new LoginLog();
 		String login_date = df.format(date);
 		log.setLogin_date(login_date);
 		log.setUser_type(user_type);
 		log.setUsername(username);
-		adminService.loginLog(log);
+		loginLogService.loginLog(log);
 		return result;
 	}
 
@@ -103,5 +104,7 @@ public class SysController {
 		}
 		return JSON.toJSONString(result);
 	}
+	
+	
 
 }

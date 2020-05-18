@@ -8,6 +8,7 @@ public class Donor {
 	private String password;
 	private String tel;
 	private String role;
+	
 	public int getId() {
 		return id;
 	}

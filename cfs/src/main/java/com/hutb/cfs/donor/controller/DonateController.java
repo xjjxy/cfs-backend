@@ -101,13 +101,13 @@ public class DonateController {
 
 	@RequestMapping("/getAllProjectBasicInfo")
 	@ResponseBody
-	public String getAllProjectBasicInfo(int currentPage, int pageSize) {
+	public String getAllProjectBasicInfo(int currentPage, int pageSize,String project_name) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		System.out.println("currentPage:" + currentPage + ",pageSize:" + pageSize);
+		System.out.println("currentPage:" + currentPage + ",pageSize:" + pageSize+",project_name:"+project_name);
 		long now = System.currentTimeMillis();
 		// System.out.println("now:"+now);
 		int currentIndex = pageSize * (currentPage - 1);
-		List<Project> list = donateService.getAllProjectBasicInfo(now, currentIndex, pageSize);
+		List<Project> list = donateService.getAllProjectBasicInfo(now, currentIndex, pageSize,"%"+project_name+"%");
 		if (null != list) {
 			// for(Project p : list){
 			// System.out.println("name:"+p.getFoundation_name());
