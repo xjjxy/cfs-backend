@@ -11,6 +11,9 @@ import com.hutb.cfs.foundation.entity.Foundation;
 import com.hutb.cfs.foundation.entity.FoundationUser;
 
 public interface BasicFoundationDao extends BaseDao {
+	
+	@Select("select count(1) from t_cfs_foundation_user_info where username = #{username}")
+	public int checkUsername(String username);
 
 	@Insert("insert into t_cfs_foundation_user_info(username,password,tel) values(#{username},#{password},#{tel})")
 	public int addFoundationUser(FoundationUser fu);

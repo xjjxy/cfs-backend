@@ -53,6 +53,12 @@ public class DefaultBasicDonorService implements BasicDonorService {
 		// TODO Auto-generated method stub
 		return basicDonorDao.getAllDonation(currentIndex,pageSize);
 	}
+
+	@Override
+	public int checkUsername(String username) {
+		// TODO Auto-generated method stub
+		return basicDonorDao.checkUsername(username);
+	}
 	
 	
 

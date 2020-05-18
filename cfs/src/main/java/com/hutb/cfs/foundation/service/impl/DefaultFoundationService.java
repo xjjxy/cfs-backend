@@ -62,4 +62,9 @@ public class DefaultFoundationService implements FoundationService {
 		// TODO Auto-generated method stub
 		return basicFoundationDao.getFoundation(id);
 	}
+	@Override
+	public int checkUsername(String username) {
+		// TODO Auto-generated method stub
+		return basicFoundationDao.checkUsername(username);
+	}
 }

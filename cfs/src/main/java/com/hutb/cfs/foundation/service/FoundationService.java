@@ -20,4 +20,6 @@ public interface FoundationService {
 	public Foundation getFoundation(int id);
 	
 	public String getUUID(int foundation_id);
+	
+	public int checkUsername(String username);
 }

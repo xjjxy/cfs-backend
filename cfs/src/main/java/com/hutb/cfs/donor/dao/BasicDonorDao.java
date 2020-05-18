@@ -35,4 +35,7 @@ public interface BasicDonorDao extends BaseDao {
 	
 	@Select("select * from t_cfs_donor_project limit #{currentIndex},#{pageSize}")
 	public List<Donation> getAllDonation(@Param("currentIndex") int currentIndex,@Param("pageSize") int pageSize);
+	
+	@Select("select count(1) from t_cfs_donor_user_info where username = #{username}")
+	public int checkUsername(String username);
 }

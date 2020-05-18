@@ -148,6 +148,19 @@ public class DonorController {
 		}
 		return JSON.toJSONString(result);
 	}
+	
+	@RequestMapping("/checkUsername")
+	@ResponseBody
+	public String checkUsername(String username){
+		System.out.println("username:"+username);
+		Map<String, Object> result = new HashMap<String, Object>();
+		int check = basicDonorService.checkUsername(username);
+		result.put("type", "1");
+		result.put("check", check);
+		
+		return JSON.toJSONString(result);
+	}
+	
 
 	@RequestMapping("/register")
 	@ResponseBody

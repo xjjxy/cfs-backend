@@ -18,4 +18,6 @@ public interface BasicDonorService {
 	public List<Donation> getProjectDonate(int project_id);
 	
 	public List<Donation> getAllDonation(int currentIndex,int pageSize);
+	
+	public int checkUsername(String username);
 }
